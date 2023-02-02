@@ -1,30 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css">
-    <title>Document</title>
-</head>
-<body>
-    <br>
-    <center>
-        <h1>Todo APP</h1>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./style.css">
+        <title>Document</title>
+    </head>
+    <body>
         <br>
-        <form name="add_task_form" >
-            <input type="text" name="task" placeholder="add new task">
-            <button>add</button>
-        </form>
-        <br>
-        <hr>
-    </center>
-
-    <div class="container">
-        
-    </div>
-    
-    
-    <script src="./script.js"></script>
-</body>
+        <center>
+            <h1>Todo APP</h1>
+            <br>
+            <form name="add_task_form">
+                <input type="text" name="task" placeholder="add new task">
+                <button>add</button>
+            </form>
+            <br>
+            <hr>
+        </center>
+        <div class="container"></div>
+        <div class="modal">
+            <button class="close-btn">
+                <img src="./img/close-modal.svg" alt="logo" class="close">
+            </button>
+            <h2 class="modal__type">Change todo name</h2>
+            <input type="text" class="modal__input">
+            <button class="modal__btn">Change</button>
+        </div>
+        <div class="modal__bg"></div>
+        <script src="./script.js"></script>
+    </body>
 </html>
+<!-- function openModal() {
+    modal.style.display = "block"
+    modalBg.style.display = "block"
+    setTimeout(() => {
+        modal.style.opacity = 1
+        modalBg.style.opacity = 1
+        modal.style.scale = 1
+    }, 200)
+}
+
+function closeModal() {
+    modal.style.opacity = 0
+    modalBg.style.opacity = 0
+    modal.style.scale = .1
+    setTimeout(() => {
+        modal.style.display = "none"
+        modalBg.style.display = "none"
+    }, 200)
+} -->
+<!-- 
+// function openClose(arr, func) {
+//     arr.onclick = () => {
+//         func()
+//     }
+// }
+
+// openClose(openBtn, openModal) -->
