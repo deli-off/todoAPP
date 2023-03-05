@@ -1,17 +1,3 @@
-let todos = [{
-	id: 1,
-	task: "Купить луну",
-	time: "14:05",
-	completed: true,
-},
-{
-	id: 2,
-	task: "Купить mandarin",
-	time: "14:05",
-	completed: false,
-},
-];
-
 let form = document.forms.add_task_form;
 let container = document.querySelector(".container");
 let modal = document.querySelector('.modal')
@@ -19,6 +5,32 @@ let modalBG = document.querySelector('.modal__bg')
 let closeBtn = document.querySelector('.close-btn')
 let input = document.querySelector('.modal__input')
 let change = document.querySelector('.modal__btn')
+let baseURL = "http://localhost:3000"
+
+
+function getData() {
+	fetch(baseURL + "/todos")
+		.then((res) => res.json())
+		.then((res) => reload(res))
+}
+getData()
+
+function postData(data, h3) {
+	fetch(baseURL + "/todos", {
+		method: "POST",
+		body: JSON.stringify(data),
+		headers: { "Content-Type": "application/json" }
+	})
+		.then(res => {
+			if (res.status === 200 || res.status === 201) {
+				getData()
+			}
+		})
+		.catch(err => console.log(err))
+}
+
+
+
 
 form.onsubmit = (event) => {
 	event.preventDefault();
@@ -35,11 +47,12 @@ form.onsubmit = (event) => {
 		todo[key] = value;
 	});
 
+	// Деструктуризация
+	let { id, time, task } = todo
 
-	todos.push(todo)
-	reload(todos)
-
-	console.log(todos);
+	if (id && time && task) {
+		postData(todo)
+	}
 };
 
 const reload = (arr) => {
@@ -84,7 +97,6 @@ const reload = (arr) => {
 		}
 
 		change.onclick = () => {
-			h3.innerHTML = input.value
 			modal.style.opacity = 0
 			modalBG.style.opacity = 0
 			modal.style.scale = .1
@@ -92,10 +104,26 @@ const reload = (arr) => {
 				modal.style.display = 'none'
 				modalBG.style.display = 'none'
 			}, 200)
+
+			fetch(baseURL + "/todos/" + item.id, {
+				method: "PUT",
+			}).then(res => {
+				if (res.status === 200 || res.status === 201) {
+					h3.innerHTML = input.value
+				}
+			}).catch(err => console.log(err))
+
 		}
 
 		img.onclick = () => {
-			box.style.display = 'none'
+
+			fetch(baseURL + "/todos/" + item.id, {
+				method: "DELETE"
+			}).then(res => {
+				if (res.status === 200 || res.status === 201) {
+					box.remove()
+				}
+			})
 		}
 
 		function openClose(arr, func) {
@@ -115,7 +143,7 @@ const reload = (arr) => {
 				modal.style.display = 'block'
 				modalBG.style.display = 'block'
 
-			}, 200)
+			}, 100)
 		}
 
 		function closeModal() {
@@ -129,5 +157,3 @@ const reload = (arr) => {
 		}
 	};
 }
-reload(todos)
-
