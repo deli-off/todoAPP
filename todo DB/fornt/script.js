@@ -1,4 +1,4 @@
-import { updateData, getData, deleteData, openModal, postData, closeModal } from "./modules/helpers.js";
+import { updateData, getData, deleteData, openModal } from "./modules/helpers.js";
 
 let form = document.forms.add_task_form;
 let container = document.querySelector(".container");
@@ -78,19 +78,14 @@ export const reload = (arr) => {
 			openModal(modal, modalBG)
 		}
 		h3.onclick = () => {
-			updateData(item.id, { completed: !item.completed })
+			updateData(item.id, {completed: !item.completed})
 		}
-
+		
 	}
 };
 
 change.onclick = () => {
-	closeModal()
-	updateData(ID, { task: input.value })
+	updateData(ID, {task: input.value})
 };
-
-closeBtn.onclick = () => {
-	closeModal()
-}
 
 getData();
